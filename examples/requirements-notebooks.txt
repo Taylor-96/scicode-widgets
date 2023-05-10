@@ -1,5 +1,6 @@
 numpy
 chemiscope
 ase
-matplotib
+matplotlib
+ipympl
 widget_code_input

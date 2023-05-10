@@ -48,3 +48,4 @@ bqplot
 # widget
 chemiscope
 widget_code_input
+ipympl
