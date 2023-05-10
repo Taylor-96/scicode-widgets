@@ -70,10 +70,9 @@ class PyplotOutput(Output, CodeVisualizer):
     def before_visualizers_update(self):
         if get_ipython().__class__.__name__ == 'Interpreter':
             self.clear_output()
-        else:
-            for ax in self.figure.get_axes():
-                if ax.has_data() or len(ax.artists) > 0:
-                    ax.clear()
+        for ax in self.figure.get_axes():
+            if ax.has_data() or len(ax.artists) > 0:
+                ax.clear()
 
     def after_visualizers_update(self):
         # required for jupyterlite
