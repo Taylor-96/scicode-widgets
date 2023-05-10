@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from ipywidgets import Output
 
 from IPython.display import display
+from IPython import get_ipython
 
 from ._utils import CodeDemoStatus
 
@@ -60,6 +61,8 @@ class PyplotOutput(Output, CodeVisualizer):
         self.figure.canvas.header_visible = False
         self.figure.canvas.footer_visible = False
         with self:
+            # redirects the display to the output controlled
+            # by the PyplotOutput
             # self.figure.canvas.show() does not work, dont understand
             # self.figure.show()
             plt.show(self.figure.canvas)
@@ -70,7 +73,10 @@ class PyplotOutput(Output, CodeVisualizer):
                 ax.clear()
 
     def after_visualizers_update(self):
-        pass
+        # required for jupyterlite
+        if get_ipython().__class__.__name__ == 'Interpreter':
+            with self:
+                display(self.figure)
 
 
 class AnimationOutput(Output, CodeVisualizer):
